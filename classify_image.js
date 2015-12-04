@@ -18,7 +18,7 @@ function preproc(url, targetLen, meanimg, callback) {
     var yy = Math.floor((sourceHeight - shortEdge) / 2);
     var xx = Math.floor((sourceWidth - shortEdge) / 2);
     context.drawImage(image,
-                      yy, xx,
+                      xx, yy,
                       shortEdge, shortEdge,
                       0, 0, targetLen, targetLen);
     var imgdata = context.getImageData(0, 0, targetLen, targetLen);
