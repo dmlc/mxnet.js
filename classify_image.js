@@ -1,9 +1,33 @@
+
+function logProgress(progress) {
+  $('#myProgress')
+        .css('width', progress+'%')
+        .attr('aria-valuenow', progress);
+}
+
+function resetProgress() {
+  $('#myProgress')
+        .attr('class', 'progress-bar')
+        .css('width', '0%')
+        .attr('aria-valuenow', '0')
+        .html('');
+}
+
 function logEvent(str) {
   console.log(str);
   var d = document.createElement('div');
   d.innerHTML = str;
   document.getElementById('result').appendChild(d);
 }
+
+function logError(message) {
+  $('#myProgress')
+        .attr('class', 'progress-bar progress-bar-danger')
+        .css('width', '100%')
+        .attr('aria-valuenow', 100).html(message);
+  logEvent(message);
+}
+
 
 function preproc(url, targetLen, meanimg, callback) {
   var canvas = document.getElementById('myCanvas');
@@ -12,21 +36,16 @@ function preproc(url, targetLen, meanimg, callback) {
   var targetLen = 224;
   image.setAttribute('crossOrigin', 'anonymous');
   image.onload = function() {
-    var sourceWidth = image.width;
-    var sourceHeight = image.height;
+    var sourceWidth = this.width;
+    var sourceHeight = this.height;
     var shortEdge = Math.min(this.width, this.height);
     var yy = Math.floor((sourceHeight - shortEdge) / 2);
     var xx = Math.floor((sourceWidth - shortEdge) / 2);
-    logEvent("shortEdge=" + shortEdge);
-
     context.drawImage(image,
                       xx, yy,
                       shortEdge, shortEdge,
                       0, 0,
                       targetLen, targetLen);
-    canvas.height = targetLen;
-    canvas.width = targetLen;
-
     var imgdata = context.getImageData(0, 0, targetLen, targetLen);
     var data = new Float32Array(targetLen * targetLen * 3);
     var stride = targetLen * targetLen;
@@ -48,6 +67,9 @@ function preproc(url, targetLen, meanimg, callback) {
     var nd = ndarray(data, [1, 3, targetLen, targetLen]);
     callback(nd);
   };
+  $(image).bind('error', function (event) {
+    logError("Opps.. Failed to load image " + url);
+  });
   image.src = url;
 }
 
@@ -59,9 +81,22 @@ function start() {
            pred.setinput('data', nd);
            logEvent("start... prediction... this can take a while");
            // delay 1sec before running prediction, so the log event renders on webpage.
-           setTimeout(function(){
-               var start = new Date().getTime();
-               pred.forward();
+           var start = new Date().getTime();
+           // reset progress bar
+           resetProgress();
+
+           function trainloop(step, nleft, finish_callback) {
+               if (nleft == 0) {
+                 finish_callback(); return;
+               }
+               nleft = pred.partialforward(step);
+               progress = (step + 1) / (nleft + step + 1) * 100;
+               logProgress(progress);
+               setTimeout(function() {
+                   trainloop(step + 1, nleft, finish_callback);
+               }, 8);
+           }
+           trainloop(0, 1, function() {
                logEvent("finished prediction...");
                out = pred.output(0);
                max_index = 0;
@@ -72,7 +107,7 @@ function start() {
                var time = (end - start) / 1000;
                logEvent('Top-1: ' + model.synset[max_index] + ', value=' + out.data[max_index] + ', time-cost=' + time + 'secs');
                pred.destroy();
-           }, 1000);
+           });
        });
    });
 }

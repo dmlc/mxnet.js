@@ -3,15 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title></title>
-  <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+  <title>MXNetJS: Deep Learning Classification on Browser</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="libmxnet_predict.js"></script>
   <script src="mxnet_predict.js"></script>
   <script src="classify_image.js"></script>
+
 </head>
 <body>
+  <header>
+    <h1>MXNetJS: Deep Learning Classification on Browser</title>
+</header>
   <input name="imageurl" id="imageURL" type="text"> Image URL </input>
   <button onclick="start()">Classify the Image</button>
+  <p> Because of crossOrigin restriction, not all URL works!</p>
+  <p> Contribution is more than welcomed</p>
+  <p> Sample url: <a href="https://raw.githubusercontent.com/dmlc/mxnet.js/master/data/cat.png">https://raw.githubusercontent.com/dmlc/mxnet.js/master/data/cat.png </a></p>
+  <p> We are using a model called "fast poor",the performance is near AlexNet, but model size is only 7.6MB in JSON format</p>
+  <p> Interestingly, Microsoft Edge and Firefox's performance is 8X better than Chrome (0.6-0.8 vs 6-8 second). </p>
+  <p> MXNet Code: <a href="https://github.com/dmlc/mxnet"> https://github.com/dmlc/mxnet </a> </p>
+  <p> MXNet.js Code: <a href="https://github.com/dmlc/mxnet.js"> https://github.com/dmlc/mxnet.js </a> </p>
+  <div class="progress">
+    <div id="myProgress", class="progress-bar" role="progressbar" aria-valuenow="0"
+         aria-valuemin="0" aria-valuemax="100" style="width:0%">
+    </div>
+  </div>
   <div id="image">
   <canvas id="myCanvas" width="224" height="224"></canvas>
   </div>
