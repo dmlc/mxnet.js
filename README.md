@@ -1,13 +1,15 @@
-MXNet JavaScript Library
-========================
+MXNetJS Deep Learning in Browser
+===============================
 Test on Browser
 ```
 python -m SimpleHTTPServer
 ```
-Then open browser http://localhost:8000/test.html
+Then open browser http://localhost:8000/classify.html
 
-See [test_mxnet_browser.js](test_mxnet_browser.js) for code.
+See [classify_image.js](classify_image.js) for code.
 
-Convert Models
-==============
-- Use ```tools/model2json.py```
+Contrbute to MXNetJS
+--------------------
+More than welcomed!
+
+

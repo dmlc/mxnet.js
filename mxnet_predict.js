@@ -287,7 +287,8 @@ function Predictor(modelobj, input_shapes) {
   // setup mean image
   if ('meanimgbase64' in modelobj) {
     binarr = base64Decode(modelobj['meanimgbase64']);
-    this.meanimg = NDListLoad(binarr);
+    dict = NDListLoad(binarr);
+    this.meanimg = dict.mean_img;
   }
 }
 

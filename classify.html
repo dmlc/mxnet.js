@@ -7,10 +7,14 @@
   <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
   <script src="libmxnet_predict.js"></script>
   <script src="mxnet_predict.js"></script>
-  <script src="test_mxnet_browser.js"></script>
+  <script src="classify_image.js"></script>
 </head>
 <body>
-  <button onclick="start()">Test Start Prediction Using Inception</button>
+  <input name="imageurl" id="imageURL" type="text"> Image URL </input>
+  <button onclick="start()">Classify the Image Using Inception</button>
+  <div id="image">
+  <canvas id="myCanvas" width="224" height="224"></canvas>
+  </div>
   <div id="result"></div>
 </body>
 </html>
