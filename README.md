@@ -19,6 +19,10 @@ Then open browser http://localhost:8000/classify.html
 See [classify_image.js](classify_image.js) for how it works.
 
 
+Use Your Own Model
+------------------
+MXNetJS can take any model trained with mxnet, use [tools/model2json.py](tools/model2json.py) to convert the model into json format and you are ready to go.
+
 Library Code
 ------------
 - [mxnet_predict.js](mxnet_predict.js) contains documented library code.
