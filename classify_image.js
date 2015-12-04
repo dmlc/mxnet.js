@@ -12,15 +12,21 @@ function preproc(url, targetLen, meanimg, callback) {
   var targetLen = 224;
   image.setAttribute('crossOrigin', 'anonymous');
   image.onload = function() {
-    var sourceWidth = this.width;
-    var sourceHeight = this.height;
+    var sourceWidth = image.width;
+    var sourceHeight = image.height;
     var shortEdge = Math.min(this.width, this.height);
     var yy = Math.floor((sourceHeight - shortEdge) / 2);
     var xx = Math.floor((sourceWidth - shortEdge) / 2);
+    logEvent("shortEdge=" + shortEdge);
+
     context.drawImage(image,
-                      yy, xx,
+                      xx, yy,
                       shortEdge, shortEdge,
-                      0, 0, targetLen, targetLen);
+                      0, 0,
+                      targetLen, targetLen);
+    canvas.height = targetLen;
+    canvas.width = targetLen;
+
     var imgdata = context.getImageData(0, 0, targetLen, targetLen);
     var data = new Float32Array(targetLen * targetLen * 3);
     var stride = targetLen * targetLen;

@@ -133,6 +133,14 @@ _CWRAP_MXPredForward = Module.cwrap
      ['number'] // PredictorHandle handle
      );
 
+_CWRAP_MXPredPartialForward = Module.cwrap
+    ('MXPredPartialForward',
+     'number',
+     ['number', // PredictorHandle handle
+      'number', // int step
+      'number'] // int* step_left
+     );
+
 _CWRAP_MXPredGetOutput = Module.cwrap
     ('MXPredGetOutput',
      'number',
@@ -304,6 +312,27 @@ Predictor.prototype = {
    */
   forward : function () {
     _CWRAP_MXPredForward(this.handle);
+  },
+  /**
+   * Run a partial forward inference.
+   * This can be used to get interactive progress of prediction.
+   * The forward start from step 0, and keep calling partialforward
+   * with increasing step, until the returned step_left = 0.
+   * var nleft = 1;
+   * for (var step = 0; nleft != 0; ++step) {
+   *   nleft = pred.partialforward(step);
+   *   console.log("progress " + step + "/" + (nleft+step));
+   * }
+   *
+   * @param step The current step of inference.
+   * @return step_left number of step left to call inference.
+   */
+  partialforward : function (step) {
+    var ptr_nleft = Module._malloc(SIZEOF_UINT);
+    _CWRAP_MXPredPartialForward(this.handle, step, ptr_nleft);
+    var nleft = Module.getValue(ptr_nleft, 'i32');
+    Module._free(ptr_nleft);
+    return nleft;
   },
   /**
    * Get i-th output of the predictor after calling forward.
