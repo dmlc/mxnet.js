@@ -7,6 +7,10 @@ MXNetJS allows you to run prediction of state-of-art deep learning models in any
 
 Try it on Browser
 -----------------
+
+Online: [http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html](http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html)
+
+Local:
 ```
 python -m SimpleHTTPServer
 ```
