@@ -1,11 +1,12 @@
 MXNet JavaScript Library
 ========================
-Test on Node.js
+Test on Browser
 ```
-node testmx.js
+python -m SimpleHTTPServer
 ```
-- Image loading and preprocessing was not yet done, so we preproc using python and dump array to base64.
+Then open browser http://localhost:8000/test.html
 
+See [test_mxnet_browser.js](test_mxnet_browser.js) for code.
 
 Convert Models
 ==============

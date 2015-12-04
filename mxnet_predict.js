@@ -3,7 +3,10 @@
  */
 // Utility function section.
 //-------------------------------------------
-var Module = require("./libmxnet_predict.js");
+var IS_NODEJS = (typeof module !== 'undefined' && module.exports);
+if (IS_NODEJS) {
+  var Module = require("./libmxnet_predict.js");
+}
 // constants
 var SIZEOF_POINTER = 4;
 var SIZEOF_UINT = 4;
@@ -15,8 +18,21 @@ var SIZEOF_FLOAT = 4;
  * @return The decoded binary string.
  */
 function base64Decode(b64) {
-  var buf =  new Buffer(b64, "base64");
-  return new Uint8Array(buf.buffer);
+  if (IS_NODEJS) {
+    var buf =  new Buffer(b64, "base64");
+    var ret = new Uint8Array(buf.length);
+    for (var i = 0; i < buf.length; ++i) {
+      ret[i] = buf[i];
+    }
+    return ret;
+  } else {
+    var buf = window.atob(b64);
+    var ret = new Uint8Array(buf.length);
+    for (var i = 0; i < buf.length; ++i) {
+      ret[i] = buf.charCodeAt(i);
+    }
+    return ret;
+  }
 }
 
 /**
@@ -26,8 +42,8 @@ function base64Decode(b64) {
  * @return The constructed NDArray object.
  */
 function ndarray(data, shape) {
-  data = Float32Array.from(data);
-  shape = Uint32Array.from(shape);
+  var data = Float32Array.from(data);
+  var shape = Uint32Array.from(shape);
   var size = shape.reduce(function(a, b) { return a * b; }, 1);
   if (data.length != size) {
     throw "Size and shape mismatch";
