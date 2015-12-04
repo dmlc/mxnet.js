@@ -20,7 +20,7 @@ See [classify_image.js](classify_image.js) for how it works.
 
 Speed
 -----
-On Microsoft Edge and Firefox, performance is at least 8 times better than Google Chrome. Usually an image takes 0.6 - 0.8 sec on FF/Edge, but 6 - 8 sec on Chrome. We assume it is optimization difference on ASM.js.
+On Microsoft Edge and Firefox, performance is at least 8 times better than Google Chrome. We assume it is optimization difference on ASM.js.
 
 
 Use Your Own Model
