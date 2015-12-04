@@ -7,6 +7,10 @@ MXNetJS allows you to run prediction of state-of-art deep learning models in any
 
 Try it on Browser
 -----------------
+
+Online: [http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html](http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html)
+
+Local:
 ```
 python -m SimpleHTTPServer
 ```
@@ -14,6 +18,14 @@ Then open browser http://localhost:8000/classify.html
 
 See [classify_image.js](classify_image.js) for how it works.
 
+Speed
+-----
+On Microsoft Edge and Firefox, performance is at least 8 times better than Google Chrome. Usually an image takes 0.6 - 0.8 sec on FF/Edge, but 6 - 8 sec on Chrome. We assume it is optimization difference on ASM.js.
+
+
+Use Your Own Model
+------------------
+MXNetJS can take any model trained with mxnet, use [tools/model2json.py](tools/model2json.py) to convert the model into json format and you are ready to go.
 
 Library Code
 ------------
