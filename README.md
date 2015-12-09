@@ -11,10 +11,18 @@ Try it on Browser
 Online: [http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html](http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html)
 
 Local:
+Python User:
 ```
 python -m SimpleHTTPServer
 ```
 Then open browser http://localhost:8000/classify.html
+
+NodeJS User:
+```
+npm install http-server -g
+http-server
+```
+Then open browser http://127.0.0.1:8080/classify.html
 
 See [classify_image.js](classify_image.js) for how it works.
 
