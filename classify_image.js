@@ -105,22 +105,20 @@ function start() {
                }
            }
            trainloop(0, 1, 0, function() {
-              logEvent("finished prediction...");
+              logEvent("finished prediction....");
               out = pred.output(0);
-              max_output = 5;
-              for (var j = 1; j <= max_output; j++) {
-                max = out.data[0];
-                index = 0;
-                for (var i = 0; i < out.data.length; ++i) {
-                  if (max < out.data[i]) {
-                      max = out.data[i];
-                      index = i;
-                  }
-                }
-                var end = new Date().getTime();
-                var time = (end - start) / 1000;
-                logEvent('Top-' + j + ':' + model.synset[index] + ', value=' + out.data[index] + ', time-cost=' + time + 'secs');
-                out.data[index] = -1;
+              var index = new Array();
+              for (var i=0;i<out.data.length;i++) {
+                index[i] = i;
+              }
+              max_output = Number(document.getElementById("max-output").value);
+              logEvent("Max output = " + max_output);
+              index.sort(function(a,b) {return out.data[b]-out.data[a];});
+              var end = new Date().getTime();
+              var time = (end - start) / 1000;
+              logEvent("time-cost=" + time + " sec");
+              for (var i = 0; i < max_output; i++) {
+                logEvent('Top-' + (i+1) + ':' + model.synset[index[i]] + ', value=' + out.data[index[i]]);
               }
               pred.destroy();
            });
