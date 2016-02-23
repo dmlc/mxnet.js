@@ -43,7 +43,7 @@ Library Code
 
 Resources
 --------
-Machine Eye -[http://rupeshs.github.io/machineye/] Web service for local image file/image URL classification without uploading.
+Machine Eye -http://rupeshs.github.io/machineye/ Web service for local image file/image URL classification without uploading.
 
 Contrbute to MXNetJS
 --------------------
