@@ -74,7 +74,7 @@ function preproc(url, targetLen, meanimg, callback) {
 }
 
 function start() {
-   $.getJSON("./model/fastpoor.json", function(model) {
+   $.getJSON("./model/squeezenet-model.json", function(model) {
        var url = document.getElementById("imageURL").value;
        pred = new Predictor(model, {'data': [1, 3, 224, 224]});
        preproc(url, 224, pred.meanimg,  function(nd) {
