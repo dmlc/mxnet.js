@@ -1,17 +1,13 @@
 MXNetJS Deep Learning in Browser
 ================================
-MXNetJS is the [dmlc/mxnet](https://github.com/dmlc/mxnet) Javascript package. MXNetJS brings state of art deep learning prediction API to the browser.
-It is generated with [Emscripten](https://github.com/kripken/emscripten) and [Amalgamation](https://github.com/dmlc/mxnet/tree/master/amalgamation).
-MXNetJS allows you to run prediction of state-of-art deep learning models in any computational graph, and brings fun of deep learning to client side.
+MXNetJS is the [Apache MXNet](https://github.com/apache/incubator-mxnet) Javascript package. MXNetJS brings state of art deep learning inference API to the browser.
+It is generated with [Emscripten](https://github.com/kripken/emscripten) and [MXNet Amalgamation](https://github.com/apache/incubator-mxnet/tree/master/amalgamation).
+MXNetJS allows you to run prediction of state-of-art deep learning models in any computational graph, and brings the fun of deep learning to the client side.
 
-
-Try it on Browser
+Try it in your browser
 -----------------
 
-Online: [http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html](http://webdocs.cs.ualberta.ca/~bx3/mxnet/classify.html)
-
-Local:
-Python User:
+This requires Python 2:
 ```
 python -m SimpleHTTPServer
 ```
@@ -33,7 +29,7 @@ On Microsoft Edge and Firefox, performance is at least 8 times better than Googl
 
 Use Your Own Model
 ------------------
-MXNetJS can take any model trained with mxnet, use [tools/model2json.py](tools/model2json.py) to convert the model into json format and you are ready to go.
+MXNetJS can take any model trained with mxnet, use [tools/model2json.py](tools/model2json.py) to convert the model into json format and you are ready to go (note that only Python 2 is supported currently)
 
 
 Library Code
