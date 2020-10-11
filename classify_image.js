@@ -68,7 +68,7 @@ function preproc(url, targetLen, meanimg, callback) {
     callback(nd);
   };
   $(image).bind('error', function (event) {
-    logError("Opps.. Failed to load image " + url);
+    logError("Oops.. Failed to load image " + url);
   });
   image.src = url;
 }
